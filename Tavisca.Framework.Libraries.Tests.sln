@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tavisca.Libraries.Tasks.Tests", "Tavisca.Framework.Libraries.Tests\Tavisca.Libraries.Tasks.Tests.csproj", "{78CBF468-AB0A-4934-86BF-76EE57B9271C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tavisca.Libraries.LockManagement.Tests", "Tavisca.Libraries.LockManagement.Tests\Tavisca.Libraries.LockManagement.Tests.csproj", "{E49105B8-4C47-44DC-B747-B3631C1782A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tavisca.Libraries.Logging.Tests", "Tavisca.Libraries.Logging.Tests\Tavisca.Libraries.Logging.Tests.csproj", "{9758A3FB-C6CC-41A0-B637-EEA1F37CB087}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{78CBF468-AB0A-4934-86BF-76EE57B9271C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78CBF468-AB0A-4934-86BF-76EE57B9271C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78CBF468-AB0A-4934-86BF-76EE57B9271C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78CBF468-AB0A-4934-86BF-76EE57B9271C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E49105B8-4C47-44DC-B747-B3631C1782A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E49105B8-4C47-44DC-B747-B3631C1782A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E49105B8-4C47-44DC-B747-B3631C1782A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E49105B8-4C47-44DC-B747-B3631C1782A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9758A3FB-C6CC-41A0-B637-EEA1F37CB087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9758A3FB-C6CC-41A0-B637-EEA1F37CB087}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9758A3FB-C6CC-41A0-B637-EEA1F37CB087}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9758A3FB-C6CC-41A0-B637-EEA1F37CB087}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {018633D0-AE25-4221-A1C3-EDD382E490B8}
+	EndGlobalSection
+EndGlobal
