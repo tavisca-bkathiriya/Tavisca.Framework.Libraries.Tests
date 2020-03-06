@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Tavisca.Libraries.Logging.Tests.Utilities;
+using Tavisca.Platform.Common;
 using Tavisca.Platform.Common.Logging;
 using Tavisca.Platform.Common.Plugins.Json;
 
@@ -36,6 +37,34 @@ namespace Tavisca.Libraries.Logging.Tests.Logging
         }
 
         [TestMethod]
+        public void Should_Not_Log_Api_Log()
+        {
+            var id = Convert.ToString(Guid.NewGuid());
+            var apiLog = Utility.GetApiLog();
+            apiLog.Id = id;
+
+            ILogFormatter formatter = JsonLogFormatter.Instance;
+
+            var configProvider = new Tavisca.Common.Plugins.Configuration.ConfigurationProvider("test_new_app");
+            var redisSink = Utility.GetLoggingDisabledRedisSink(configProvider);
+
+            var logWriter = new LogWriter(formatter, redisSink, configurationProvider: configProvider);
+            logWriter.WriteAsync(apiLog).GetAwaiter().GetResult();
+            Thread.Sleep(40000);
+
+            Assert.ThrowsException<Exception>(() => Utility.GetEsLogDataById(id));
+        }
+
+        [TestMethod]
+        public void Should_Throw_ArgumentNullException_When_RedisSetting_Is_Null()
+        {
+            var id = Convert.ToString(Guid.NewGuid());
+            var apiLog = Utility.GetApiLog();
+            apiLog.Id = id;
+            Assert.ThrowsException<ArgumentNullException>(() => Utility.GetRedisSinkWithNullSettings());
+        }
+
+        [TestMethod]
         public void Should_Log_Trace_Log()
         {
             var id = Convert.ToString(Guid.NewGuid());
@@ -52,6 +81,49 @@ namespace Tavisca.Libraries.Logging.Tests.Logging
             var esLogId = string.Empty;
             logData.TryGetValue("id", out esLogId);
             Assert.AreEqual(id, esLogId);
+        }
+
+        [TestMethod]
+        public void Should_Log_Exception_Log()
+        {
+            try
+            {
+                throw new ArgumentNullException();
+            }
+            catch (Exception exception)
+            {
+                var id = Convert.ToString(Guid.NewGuid());
+                var apiLog = Utility.GetApiLog();
+                apiLog.Id = id;
+                var exceptionLog = GetErrorEntry(exception, apiLog);
+                ILogFormatter formatter = JsonLogFormatter.Instance;
+                var redisSink = Utility.GetRedisSink();
+                var logWriter = new LogWriter(formatter, redisSink);
+                logWriter.WriteAsync(exceptionLog).GetAwaiter().GetResult();
+
+                Thread.Sleep(40000);
+
+                var logData = Utility.GetEsLogDataById(id);
+                var esLogId = string.Empty;
+                logData.TryGetValue("id", out esLogId);
+                Assert.AreEqual(id, esLogId);
+            }
+        }
+
+        private ExceptionLog GetErrorEntry(Exception exception, ILog log)
+        {
+            var exceptionLog = new ExceptionLog(exception);
+
+            var baseLog = log as LogBase;
+            if (baseLog == null)
+            {
+                return exceptionLog;
+            }
+
+            exceptionLog.AppDomain = baseLog.AppDomain;
+            exceptionLog.ApplicationName = baseLog.ApplicationName;
+            exceptionLog.Id = baseLog.Id;
+            return exceptionLog;
         }
 
         [TestMethod]
