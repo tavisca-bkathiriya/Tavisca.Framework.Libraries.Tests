@@ -33,5 +33,25 @@ namespace Tavisca.Libraries.Logging.Tests.Logging
 
             Assert.AreEqual(id, esLogId);
         }
+
+        [TestMethod]
+        public void Should_Log_Cross_Account_Api_Log()
+        {
+            var id = Convert.ToString(Guid.NewGuid());
+            var apiLog = Utility.GetApiLog();
+            apiLog.Id = id;
+            ILogFormatter formatter = JsonLogFormatter.Instance;
+            var firehoseSink = Utility.GetCrossAccountFirehoseSink();
+
+            var logWriter = new LogWriter(formatter, firehoseSink);
+            logWriter.WriteAsync(apiLog).GetAwaiter().GetResult();
+            Thread.Sleep(60000);
+
+            var logData = Utility.GetEsLogDataById(id);
+            var esLogId = string.Empty;
+            logData.TryGetValue("id", out esLogId);
+
+            Assert.AreEqual(id, esLogId);
+        }
     }
 }

@@ -123,6 +123,16 @@ namespace Tavisca.Libraries.Logging.Tests.Utilities
             return new RedisSink(redisLogSettings);
         }
 
+        public static FirehoseSink GetCrossAccountFirehoseSink()
+        {
+            //IFirehoseLogSettingsProvider firehoseLogSettingsProvider = new StaticFireHoseSettingsProvider();
+            var configProvider = new Tavisca.Common.Plugins.Configuration.ConfigurationProvider("test_arn_app");
+            //var value = configProvider.GetGlobalConfigurationAsString("def", "xyz");
+            var firehoseLogSettingsProvider = new FirehoseSettingsProvider(configProvider);
+            var firehoseSink = new FirehoseSink(firehoseLogSettingsProvider);
+            return firehoseSink;
+        }
+
         public static RedisSink GetLoggingDisabledRedisSink(Common.Plugins.Configuration.ConfigurationProvider configProvider)
         {
             var redisLogSettings = new RedisLogSettingsProvider(configProvider);
