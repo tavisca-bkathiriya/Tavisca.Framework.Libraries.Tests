@@ -27,12 +27,12 @@ namespace Tavisca.Libraries.Logging.Tests.Logging
             IApplicationLogWriter applicationLogWriter = new LogWriter(formatter, redisSink);
             Logger.Initialize(applicationLogWriter);
             Logger.WriteLogAsync(apiLog).GetAwaiter().GetResult();
-            Thread.Sleep(40000);
+            //Thread.Sleep(40000);
 
             var logData = Utility.GetEsLogDataById(id);
             var esLogId = string.Empty;
             logData.TryGetValue("id", out esLogId);
-            Assert.AreEqual(id, esLogId); //TODO: Manually verify logs using primary firehose sink (Use valid firehose credentials) 
+            Assert.AreEqual(id, esLogId); 
         }
     }
 }
