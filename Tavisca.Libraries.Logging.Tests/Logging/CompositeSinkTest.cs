@@ -33,9 +33,12 @@ namespace Tavisca.Libraries.Logging.Tests.Logging
 
             var logData = Utility.GetEsLogDataById(id);
             var esLogId = string.Empty;
+            var logSource = string.Empty;
             logData.TryGetValue("id", out esLogId);
+            logData.TryGetValue("log_source", out logSource);
 
             Assert.AreEqual(id, esLogId);
+            Assert.AreEqual("redis", logSource);
         }
 
         [TestMethod]
@@ -55,9 +58,12 @@ namespace Tavisca.Libraries.Logging.Tests.Logging
 
             var logData = Utility.GetEsLogDataById(id);
             var esLogId = string.Empty;
+            var logSource = string.Empty;
             logData.TryGetValue("id", out esLogId);
+            logData.TryGetValue("log_source", out logSource);
 
-            Assert.AreEqual(id, esLogId); 
+            Assert.AreEqual(id, esLogId);
+            Assert.IsNull(logSource);
         }
 
         [TestMethod]
@@ -77,9 +83,12 @@ namespace Tavisca.Libraries.Logging.Tests.Logging
 
             var logData = Utility.GetEsLogDataById(id);
             var esLogId = string.Empty;
+            var logSource = string.Empty;
             logData.TryGetValue("id", out esLogId);
+            logData.TryGetValue("log_source", out logSource);
 
             Assert.AreEqual(id, esLogId);
+            Assert.AreEqual("redis", logSource);
         }
 
         [TestMethod]
@@ -100,9 +109,12 @@ namespace Tavisca.Libraries.Logging.Tests.Logging
 
             var logData = Utility.GetEsLogDataById(id);
             var esLogId = string.Empty;
+            var logSource = string.Empty;
             logData.TryGetValue("id", out esLogId);
+            logData.TryGetValue("log_source", out logSource);
 
             Assert.AreEqual(id, esLogId);
+            Assert.IsNull(logSource);
         }
     }
 }
